@@ -1,6 +1,7 @@
 'use client';
 import { useState, type FormEvent } from 'react';
 import { sb } from '@/lib/supabase';
+import Select from './Select';
 
 const DISTRICTS = ['Barranco', 'Miraflores', 'San Isidro', 'Santiago de Surco', 'La Molina', 'Chorrillos', 'Punta Hermosa', 'Otro'];
 const KINDS = ['Casa nueva', 'Remodelación', 'Edificio', 'Comercial'];
@@ -9,6 +10,8 @@ type Errors = Partial<Record<'name' | 'email' | 'area' | 'kind', string>>;
 
 export default function Contact() {
   const [kind, setKind] = useState<string | null>(null);
+  const [district, setDistrict] = useState(DISTRICTS[0]);
+  const [budget, setBudget] = useState(BUDGETS[1]);
   const [errors, setErrors] = useState<Errors>({});
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
   const [who, setWho] = useState('');
@@ -56,10 +59,7 @@ export default function Contact() {
             <input name="email" type="email" autoComplete="email" aria-invalid={!!errors.email} aria-describedby="c-email" />
             <small id="c-email" className="err">{errors.email}</small>
           </label>
-          <label className="field">
-            <span>Distrito</span>
-            <select name="district" defaultValue="Barranco">{DISTRICTS.map((d) => <option key={d}>{d}</option>)}</select>
-          </label>
+          <Select className="field" label="Distrito" name="district" value={district} onChange={setDistrict} options={DISTRICTS.map((x) => ({ value: x, label: x }))} />
           <label className="field">
             <span>Área del terreno (m²)</span>
             <input name="area" type="number" inputMode="numeric" min={40} placeholder="200" aria-invalid={!!errors.area} aria-describedby="c-area" />
@@ -72,10 +72,7 @@ export default function Contact() {
             </div>
             <small id="c-kind" className="err">{errors.kind}</small>
           </fieldset>
-          <label className="field field--wide">
-            <span>Presupuesto aproximado</span>
-            <select name="budget" defaultValue={BUDGETS[1]}>{BUDGETS.map((b) => <option key={b}>{b}</option>)}</select>
-          </label>
+          <Select className="field field--wide" label="Presupuesto aproximado" name="budget" value={budget} onChange={setBudget} options={BUDGETS.map((x) => ({ value: x, label: x }))} />
           <button type="submit" className="btn btn--dark field--wide" disabled={state === 'sending'}>
             {state === 'sending' ? 'Enviando…' : 'Pedir estudio solar gratis'}
           </button>
