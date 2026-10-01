@@ -8,7 +8,7 @@ const mono = JetBrains_Mono({ subsets: ['latin'], weight: ['400', '500'], variab
 export const metadata: Metadata = {
   metadataBase: new URL('https://landing-architecture-studio-danielyatacoblas-projects.vercel.app'),
   title: 'Celosía — Arquitectura para el sol de Lima',
-  description: 'Estudio de arquitectura en Barranco. Mueve el sol sobre una maqueta 3D y mira dónde cae la sombra. Demo de portafolio de Daniel Yataco.',
+  description: 'Estudio de arquitectura en Barranco. Mueve el sol sobre una maqueta 3D y mira dónde cae la sombra. Diseño demo de Daniel Yataco · WhatsApp 975 118 790.',
   openGraph: { title: 'Celosía — Diseñamos la sombra antes que la casa', description: 'Estudio solar interactivo en 3D.', images: ['/img/hero.jpg'] },
 };
 

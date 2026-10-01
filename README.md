@@ -15,8 +15,8 @@ Celosía es un estudio ficticio que convierte eso en algo que se toca: **una maq
 | Sección | Qué resuelve | Técnica |
 |---|---|---|
 | Hero | Presentar la idea del estudio | Persianas que se abren (8 listones con `scaleX` escalonado), titular por líneas, parallax |
-| Estudio solar | Ver la sombra antes de construir | **Three.js**: maqueta con volúmenes, celosía de 16 listones y árbol; sombras PCF suaves; `OrbitControls`; renderizado solo cuando algo cambia; Three.js se descarga solo cuando la sección se acerca |
-| % del patio en sombra | Medir, no adivinar | 340 rayos (`Raycaster`) desde una grilla del piso del patio hacia el sol |
+| Estudio solar | Ver la sombra antes de construir | **Three.js** con un modelo BIM real (casa AC20-FZK-Haus del KIT, convertida de IFC a GLB con IfcOpenShell), terraza con celosía y árbol; sombras PCF suaves; `OrbitControls`; renderizado solo cuando algo cambia; Three.js se descarga solo cuando la sección se acerca |
+| % de la terraza en sombra | Medir, no adivinar | Rayos (`Raycaster`) desde una grilla del piso de la terraza hacia el sol, contra la casa, la celosía y el árbol |
 | Proyectos | Ver obras | Índice editorial con vista previa que sigue al cursor (`gsap.quickTo`), filtros y ficha en `<dialog>` |
 | Celosía | Contar el criterio del estudio | Sombra rayada que se desliza con el scroll |
 | Proceso | Explicar tiempos | Línea que se dibuja con el scroll y fotos que se revelan con `clip-path` |
@@ -78,7 +78,12 @@ npm run build
 ## Créditos
 
 - Fotografía: [Pexels](https://www.pexels.com).
+- Modelo 3D: AC20-FZK-Haus, Institute for Automation and Applied Informatics (IAI), Karlsruhe Institute of Technology (KIT), de uso libre con atribución.
 - Celosía es ficticio: proyectos, áreas, porcentajes y direcciones son de demostración.
+
+## Contacto
+
+¿Quieres una web así para tu negocio? Escríbeme por WhatsApp al **[975 118 790](https://wa.me/51975118790)**.
 
 ---
 

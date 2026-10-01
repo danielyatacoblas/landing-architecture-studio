@@ -30,7 +30,9 @@ export default function SunStudy() {
       if (!test.getContext('webgl2') && !test.getContext('webgl')) { setState('nogl'); return; }
       setState('loading');
       const { createScene } = await import('@/lib/scene');
-      api.current = createScene(canvas.current!);
+      try {
+        api.current = await createScene(canvas.current!);
+      } catch { setState('nogl'); return; }
       api.current.resize();
       setState('ready');
     }, { rootMargin: '300px' });
@@ -62,20 +64,20 @@ export default function SunStudy() {
     <section className="sun" id="estudio-solar" aria-labelledby="sun-title">
       <div className="sun__head">
         <h2 id="sun-title">Mueve el sol sobre Lima y mira dónde cae la sombra</h2>
-        <p>Es la Casa Patio en Barranco, a escala. La celosía de madera deja pasar luz en invierno y corta el sol del verano. Gira la maqueta con el dedo o el mouse.</p>
+        <p>Una casa real de dos pisos, modelada en BIM, con nuestra terraza de celosía al sur. La celosía deja pasar luz en invierno y corta el sol del verano. Gira la maqueta con el dedo o el mouse.</p>
       </div>
 
       <div className="sun__stage" ref={wrap}>
-        <canvas ref={canvas} className="sun__canvas" aria-label={`Maqueta 3D de la Casa Patio con el sol a las ${formatHour(hour)} del ${SEASON_LABEL[season]}`} role="img" />
+        <canvas ref={canvas} className="sun__canvas" aria-label={`Maqueta 3D de una casa de dos pisos con terraza de celosía y el sol a las ${formatHour(hour)} del ${SEASON_LABEL[season]}`} role="img" />
         {state !== 'ready' && (
           <div className="sun__state">
-            {state === 'nogl' ? 'Tu navegador no tiene WebGL activo: la maqueta 3D no puede mostrarse.' : 'Cargando maqueta 3D…'}
+            {state === 'nogl' ? 'No pudimos mostrar la maqueta 3D en este navegador.' : 'Cargando maqueta 3D…'}
           </div>
         )}
         <div className="sun__compass" aria-hidden="true"><span>N</span></div>
 
         <div className="sun__read" aria-live="polite">
-          <p className="sun__shade"><b className="tnum">{shade === null ? '—' : `${shade} %`}</b> del patio en sombra</p>
+          <p className="sun__shade"><b className="tnum">{shade === null ? '—' : `${shade} %`}</b> de la terraza en sombra</p>
           <dl>
             <div><dt>Fecha</dt><dd>{SEASON_LABEL[season]}</dd></div>
             <div><dt>Hora solar</dt><dd className="mono">{formatHour(hour)}</dd></div>
@@ -103,6 +105,7 @@ export default function SunStudy() {
           {playing ? 'Pausar' : 'Ver el día completo'}
         </button>
       </div>
+            <p className="sun__credit">Modelo: AC20-FZK-Haus, Institute for Automation and Applied Informatics (IAI), Karlsruhe Institute of Technology (KIT).</p>
     </section>
   );
 }
