@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from 'react';
-import Lenis from 'lenis';
-import { gsap, ScrollTrigger, reduced } from '@/lib/motion';
+import { startSmoothScroll } from '@/lib/smooth';
+import DemoCta from './DemoCta';
 import Header from './Header';
 import Hero from './Hero';
 import SunStudy from './SunStudy';
@@ -12,15 +12,7 @@ import Contact from './Contact';
 import Footer from './Footer';
 
 export default function Studio() {
-  useEffect(() => {
-    if (reduced()) return;
-    const lenis = new Lenis({ duration: 1.15 });
-    lenis.on('scroll', ScrollTrigger.update);
-    const tick = (t: number) => lenis.raf(t * 1000);
-    gsap.ticker.add(tick);
-    gsap.ticker.lagSmoothing(0);
-    return () => { gsap.ticker.remove(tick); lenis.destroy(); };
-  }, []);
+  useEffect(() => startSmoothScroll(1.15), []);
 
   return (
     <>
@@ -35,6 +27,7 @@ export default function Studio() {
         <Contact />
       </main>
       <Footer />
+      <DemoCta site="Celosía (estudio de arquitectura)" />
     </>
   );
 }
